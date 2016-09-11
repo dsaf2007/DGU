@@ -25,6 +25,9 @@ bool insidecir(const double x, const double y)
 }
 void main()
 {
+
+	FILE *op = fopen("circle.txt", "w");
+
 	srand((unsigned int)time(NULL));
 
 	for (int i = 0; i < 10000; i++)
@@ -33,7 +36,9 @@ void main()
 		double y = GetRand(0.0, 1.0);
 
 		if (insidecir(x, y) == true)
-			printf("%f %f\n", x, y);
+			fprintf(op,"%f %f\n", x, y);
 	}
+
+	fclose(op);
 
 }
