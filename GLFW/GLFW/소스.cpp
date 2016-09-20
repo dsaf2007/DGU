@@ -1,9 +1,9 @@
 #include <GLFW/glfw3.h>
 #include <algorithm>
 
-const int width = 100;
+const int width = 500;
 
-const int height = 100;
+const int height =  500;
 
 
 
@@ -32,16 +32,36 @@ void drawPixel(const int& i, const int& j, const float& red, const float& green,
 void drawLine(const int& i0, const int& j0, const int& i1, const int& j1, const float& red, const float& green, const float& blue)
 
 {
-
-	for (int i = i0; i <= i1; i++)
-
+	if (i1 == i0)
 	{
+		for (int j = j0; j <= j1; j++)
+		{
+			const int i = i1;
 
-		const int j = (j1 - j0)*(i - i0) / (i1 - i0) + j0;
+
+			drawPixel(i, j, red, green, blue);
+		}
+	}
+	if (j1 == j0)
+	{
+		for (int i = i0; i <= i1; i++)
+		{
+			const int j = j1;
 
 
+			drawPixel(i, j, red, green, blue);
+		}
+	}if(i0!=i1&&j0!=j1)
+	{
+		for (int i = i0; i <= i1; i++)
 
-		drawPixel(i, j, red, green, blue);
+		{
+
+			const int j = (j1 - j0)*(i - i0) / (i1 - i0) + j0;
+
+
+			drawPixel(i, j, red, green, blue);
+		}
 
 	}
 
@@ -73,7 +93,12 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 		std::fill_n(pixels, width*height * 3, 1.0f);
 
-		drawLine(0,0,100, 100, 1.0f, 0.0f, 0.0f);
+		drawLine(100,100,100, 200, 1.0f, 0.0f, 0.0f);
+		drawLine(100, 200, 199,200, 1.0f, 0.0f, 0.0f);
+		drawLine(101, 100, 199, 100, 1.0f, 0.0f, 0.0f);
+		
+		drawLine(200, 100, 200, 199, 1.0f, 0.0f, 0.0f);
+
 		glDrawPixels(width, height, GL_RGB, GL_FLOAT, pixels);
 
 		/* Swap front and back buffers */
