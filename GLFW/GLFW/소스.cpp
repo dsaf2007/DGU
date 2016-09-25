@@ -222,6 +222,7 @@ int main(void)
 	
 		
 	    glfwGetCursorPos(window, &xpos, &ypos);
+		//icon1
 			drawcircle2(100, 100, 50);
 
 
@@ -252,53 +253,6 @@ int main(void)
 			drawcircle2(700, 250, 50);
 
 
-		//circle1
-	/*		for (int i = 0; i < 3000000; i++)
-			{
-
-				double x = GetRand(50, 150);
-				double y = GetRand(50, 150);
-
-
-				if (insidecir(x, y, 100, 100, 50) == true)
-					drawPixel((int)x, (int)y, 1.0f, 0.0f, 0.0f);
-			}*/
-		////circle2
-		//	double x2 = GetRand(200, 300);
-		//	double y2= GetRand(50, 150);
-
-
-		//	if (insidecir(x2, y2, 250, 100, 50) == true)
-		//		drawPixel((int)x2, (int)y2, 1.0f, 0.0f, 0.0f);
-
-
-		////circle3
-
-		//	double x3 = GetRand(350, 450);
-		//	double y3 = GetRand(50, 150);
-
-
-		//	if (insidecir(x3, y3, 400, 100, 50) == true)
-		//		drawPixel((int)x3, (int)y3, 1.0f, 0.0f, 0.0f);
-
-
-		//	double x4 = GetRand(500, 600);
-		//	double y4 = GetRand(50, 150);
-
-
-		//	if (insidecir(x4, y4, 550, 100, 50) == true)
-		//		drawPixel((int)x4, (int)y4, 1.0f, 0.0f, 0.0f);
-
-		////circle5
-
-		//	double x5 = GetRand(650, 750);
-		//	double y5 = GetRand(50, 150);
-
-
-		//	if (insidecir(x5, y5, 700, 100, 50) == true)
-		//		drawPixel((int)x5, (int)y5, 1.0f, 0.0f, 0.0f);
-
-		//
 
 
 
