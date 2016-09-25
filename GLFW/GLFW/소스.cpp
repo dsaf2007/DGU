@@ -17,7 +17,7 @@ bool insidecir(const double x, const double y, const int x_c, const int y_c, con
 
 
 	const double f = (x - x_c)*(x - x_c) + (y - y_c)*(y - y_c) - r*r;
-	if (f >= 0.0&&f<100.0)return true;
+	if (f >= 0.0&&f<1000.0)return true;
 	else return false;
 }
 
@@ -224,15 +224,27 @@ int main(void)
 	    glfwGetCursorPos(window, &xpos, &ypos);
 		//icon1
 			drawcircle2(100, 100, 50);
-
-
+			drawLine(100, 65, 100, 135, 1.0f, 0.0f, 0.0f);
+			drawLine(85, 120, 100, 135, 1.0f, 0.0f, 0.0f);
+			drawLine(100, 135, 115, 120, 1.0f, 0.0f, 0.0f);
+			//icon 2
 			drawcircle2(250, 100, 50);
-			
-			
+			drawLine(250, 65, 250, 135, 1.0f, 0.0f, 0.0f);
+			drawLine(235,80, 250, 65, 1.0f, 0.0f, 0.0f);
+			drawLine(250, 65, 265, 80, 1.0f, 0.0f, 0.0f);
+			//icon3
 			drawcircle2(400, 100, 50);
 			
-			
+			drawLine(365, 100, 435, 100, 1.0f, 0.0f, 0.0f);
+			drawLine(365,100 , 380, 115, 1.0f, 0.0f, 0.0f);
+			drawLine(365, 100, 380, 85, 1.0f, 0.0f, 0.0f);
+
+			//icon4
 			drawcircle2(550, 100, 50);
+			drawLine(515, 100, 585, 100, 1.0f, 0.0f, 0.0f);
+			drawLine(570, 115,585 , 100, 1.0f, 0.0f, 0.0f);
+			drawLine(570, 85,585,100, 1.0f, 0.0f, 0.0f);
+
 			
 			
 			drawcircle2(700, 100, 50);
