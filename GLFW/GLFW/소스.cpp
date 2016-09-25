@@ -244,25 +244,40 @@ int main(void)
 			drawLine(515, 100, 585, 100, 1.0f, 0.0f, 0.0f);
 			drawLine(570, 115,585 , 100, 1.0f, 0.0f, 0.0f);
 			drawLine(570, 85,585,100, 1.0f, 0.0f, 0.0f);
-
-			
-			
+			//icon5
 			drawcircle2(700, 100, 50);
+			drawthickLine(665, 65, 735, 135, 1.0f, 0.0f, 0.0f);
 			
-			
+			//icon6
 			drawcircle2(100, 250, 50);
+			fill(75, 75, 125, 125, 225, 275, 225, 275, 1.0f, 0.0f, 0.0f);
 			
-			
+			//icon7
 			drawcircle2(250, 250, 50);
-			
-			
+			for (int rad = 25; rad > 0; rad--)
+			{
+				drawcircle(250, 250, rad);
+			}
+			//icon8
 			drawcircle2(400, 250, 50);
+			for(int x=375;x<425;x++)
+				for (int y = 225; y < 275; y ++ )
+				{
+					if (insidecir(x, y, 400, 250, 25) == false)
+						drawPixel(x, y, 1.0f, 0.0f, 0.0f);
+				}
 			
-			
+			//icon9
 			drawcircle2(550, 250, 50);
+			drawLine(525, 275, 575, 275, 1.0f, 0.0f, 0.0f);
+			drawLine(525, 225, 575, 225, 1.0f, 0.0f, 0.0f);
+			drawLine(525, 225, 575, 275, 1.0f, 0.0f, 0.0f);
 			
-			
+			//icon10
 			drawcircle2(700, 250, 50);
+			drawLine(690, 225, 690, 275, 1.0f, 0.0f, 0.0f);
+			drawLine(690, 275, 720, 250, 1.0f, 0.0f, 0.0f);
+			drawLine(690, 225, 720, 250, 1.0f, 0.0f, 0.0f);
 
 
 
