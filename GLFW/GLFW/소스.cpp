@@ -7,11 +7,14 @@
 
 const int width = 800;
 
-const int height = 350;
+const int height = 700;
 
 double xpos, ypos;
 
 float* pixels = new float[width*height * 3];
+const int num_lines = 5;
+
+const int num_cir = 20;
 
 bool insidecir(const double x, const double y, const int x_c, const int y_c, const int r)
 {
@@ -48,7 +51,7 @@ void drawPixel(const int& i, const int& j, const float& red, const float& green,
 }
 
 
-void drawcircle(double x0, double y0, double radius)
+void drawcircle(double x0, double y0, int radius)
 {
 	int x = radius;
 	int y = 0;
@@ -56,7 +59,7 @@ void drawcircle(double x0, double y0, double radius)
 
 	while (x >= y)
 	{
-		if (poscir(xpos, 350 - ypos, x0, y0, radius) >= 0.0)
+		if (poscir(xpos, 700 - ypos, x0, y0, radius) >= 0.0)
 		{
 			drawPixel(x0 + x, y0 + y, 1.0f, 0.0f, 0.0f);
 			drawPixel(x0 + y, y0 + x, 1.0f, 0.0f, 0.0f);
@@ -90,7 +93,7 @@ void drawcircle(double x0, double y0, double radius)
 		}
 	}
 }
-void drawcircle2(int x0, int y0, double radius)
+void drawcircle2(int x0, int y0, int radius)
 {
 	drawcircle(x0, y0, radius);
 	drawcircle(x0, y0, radius + 0.2);
@@ -178,9 +181,119 @@ void drawthickLine(const int& i0, const int& j0, const int& i1, const int& j1, c
 	}
 }
 
+class geometric
+{
+public:
+	virtual void draw()
+	{
+
+	}
+};
+
+class Line: public geometric
+{
+public:
+	int start_x, start_y;
+	int end_x, end_y;
+	  
+	void draw()
+	{
+		drawLine(start_x, start_y, end_x, end_y, 1.0f, 0.0f, 0.0f);
+	}
+};
+
+Line *my_lines = new Line[num_lines];
+
+
+class box : public geometric
+{
+public:
+	int start_x, start_y;
+	int end_x, end_y;
+
+	void initialize(const int _start_x, const int _start_y, const int _end_x, const int _end_y)
+	{
+		start_x = _start_x;
+		start_y = _start_y;
+		end_x = _end_x;
+		end_y = _end_y;
+	}
+
+	void draw()
+	{
+		drawLine(start_x, start_y, end_x, start_y, 1.0f, 0.0f, 0.0f);
+		drawLine(start_x, start_y, start_x, end_y, 1.0f, 0.0f, 0.0f);
+		drawLine(start_x, end_y ,end_x, end_y, 1.0f, 0.0f, 0.0f);
+		drawLine(end_x, start_y, end_x, end_y, 1.0f, 0.0f, 0.0f);
+	}
+};
+
+box my_box;
+
+class circle :public geometric
+{
+public:
+	int x0, y0;
+	int radius;
+	circle()
+	{
+
+	}
+public:
+	circle(int & _x0, int& _y0, int& _radius)
+	{
+		initialize(_x0,_y0,_radius);
+		
+	}
+	void initialize(int & _x0,int& _y0, int& _radius)
+	{
+		x0 = _x0;
+		y0 = _y0;
+		radius = _radius;
+	}
+	void draw()
+	{
+		drawcircle2(x0, y0, radius);
+	}
+};
+
+circle **my_circles = new circle*[num_cir];
+
+geometric **my_object = new geometric*[20];
 
 int main(void)
 {
+
+	geometric *my_circle = new circle;
+
+	////initialize lines
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	my_lines[i].start_x = 0 + 50 * i;
+	//	my_lines[i].start_y = 0;
+	//	my_lines[i].end_x = 50 + 50 * i;
+	//	my_lines[i].end_y =50;
+
+	//}
+
+	////initialize box
+	//my_box.initialize(100, 100, 200, 200);
+	for (int f = 0; f < 4; f++)
+	{
+		for (int i = 0; i < 5; i++)
+		{
+
+			circle *temp = new circle;
+			/*my_circles[i+5*f] = new circle(100 + 150 * i, 100 + 150 * f,50);*/
+			temp->radius = 50;
+			temp->x0 = 100 + 150 * i;
+			temp->y0 = 100 + 150 * f;
+
+			my_object[i + 5 * f] = temp;
+
+		}
+	}
+	
 	GLFWwindow* window;
 
 	/* Initialize the library */
@@ -208,72 +321,76 @@ int main(void)
 
 
 		glfwGetCursorPos(window, &xpos, &ypos);
-		//icon1
-		drawcircle2(100, 100, 50);
-		drawLine(100, 65, 100, 135, 1.0f, 0.0f, 0.0f);
-		drawLine(85, 120, 100, 135, 1.0f, 0.0f, 0.0f);
-		drawLine(100, 135, 115, 120, 1.0f, 0.0f, 0.0f);
-		//icon 2
-		drawcircle2(250, 100, 50);
-		drawLine(250, 65, 250, 135, 1.0f, 0.0f, 0.0f);
-		drawLine(235, 80, 250, 65, 1.0f, 0.0f, 0.0f);
-		drawLine(250, 65, 265, 80, 1.0f, 0.0f, 0.0f);
-		//icon3
-		drawcircle2(400, 100, 50);
+		////icon1
+		//drawcircle2(100, 100, 50);
+		//drawLine(100, 65, 100, 135, 1.0f, 0.0f, 0.0f);
+		//drawLine(85, 120, 100, 135, 1.0f, 0.0f, 0.0f);
+		//drawLine(100, 135, 115, 120, 1.0f, 0.0f, 0.0f);
+		////icon 2
+		//drawcircle2(250, 100, 50);
+		//drawLine(250, 65, 250, 135, 1.0f, 0.0f, 0.0f);
+		//drawLine(235, 80, 250, 65, 1.0f, 0.0f, 0.0f);
+		//drawLine(250, 65, 265, 80, 1.0f, 0.0f, 0.0f);
+		////icon3
+		//drawcircle2(400, 100, 50);
 
-		drawLine(365, 100, 435, 100, 1.0f, 0.0f, 0.0f);
-		drawLine(365, 100, 380, 115, 1.0f, 0.0f, 0.0f);
-		drawLine(365, 100, 380, 85, 1.0f, 0.0f, 0.0f);
+		//drawLine(365, 100, 435, 100, 1.0f, 0.0f, 0.0f);
+		//drawLine(365, 100, 380, 115, 1.0f, 0.0f, 0.0f);
+		//drawLine(365, 100, 380, 85, 1.0f, 0.0f, 0.0f);
 
-		//icon4
-		drawcircle2(550, 100, 50);
-		drawLine(515, 100, 585, 100, 1.0f, 0.0f, 0.0f);
-		drawLine(570, 115, 585, 100, 1.0f, 0.0f, 0.0f);
-		drawLine(570, 85, 585, 100, 1.0f, 0.0f, 0.0f);
-		//icon5
-		drawcircle2(700, 100, 50);
-		drawthickLine(675, 75, 725, 125, 1.0f, 0.0f, 0.0f);
+		////icon4
+		//drawcircle2(550, 100, 50);
+		//drawLine(515, 100, 585, 100, 1.0f, 0.0f, 0.0f);
+		//drawLine(570, 115, 585, 100, 1.0f, 0.0f, 0.0f);
+		//drawLine(570, 85, 585, 100, 1.0f, 0.0f, 0.0f);
+		////icon5
+		//drawcircle2(700, 100, 50);
+		//drawthickLine(675, 75, 725, 125, 1.0f, 0.0f, 0.0f);
 
-		//icon6
-		drawcircle2(100, 250, 50);
+		////icon6
+		//drawcircle2(100, 250, 50);
 
-		drawLine(75, 225, 75, 275, 1.0f, 0.0f, 0.0f);
-		drawLine(125, 225, 125, 275, 1.0f, 0.0f, 0.0f);
-		drawLine(75, 225, 125, 225, 1.0f, 0.0f, 0.0f);
-		drawLine(75, 275, 125, 275, 1.0f, 0.0f, 0.0f);
+		//drawLine(75, 225, 75, 275, 1.0f, 0.0f, 0.0f);
+		//drawLine(125, 225, 125, 275, 1.0f, 0.0f, 0.0f);
+		//drawLine(75, 225, 125, 225, 1.0f, 0.0f, 0.0f);
+		//drawLine(75, 275, 125, 275, 1.0f, 0.0f, 0.0f);
 
-		//icon7
-		drawcircle2(250, 250, 50);
-		drawLine(250, 215, 250, 285, 1.0f, 0.0f, 0.0f);
-		//icon8
-		drawcircle2(400, 250, 50);
-		for (int x = 375; x<425; x++)
-			for (int y = 225; y < 275; y++)
-			{
-				if (insidecir(x, y, 400, 250, 25) == false)
-					drawPixel(x, y, 1.0f, 0.0f, 0.0f);
-			}
-		for (int x = 375; x<425; x++)
-			for (int y = 225; y < 275; y++)
-			{
-				if (insidecir(x, y, 400, 250, 20) == false)
-					drawPixel(x, y, 1.0f, 1.0f, 1.0f);
-			}
+		////icon7
+		//drawcircle2(250, 250, 50);
+		//drawLine(250, 215, 250, 285, 1.0f, 0.0f, 0.0f);
+		////icon8
+		//drawcircle2(400, 250, 50);
+		//for (int x = 375; x<425; x++)
+		//	for (int y = 225; y < 275; y++)
+		//	{
+		//		if (insidecir(x, y, 400, 250, 25) == false)
+		//			drawPixel(x, y, 1.0f, 0.0f, 0.0f);
+		//	}
+		//for (int x = 375; x<425; x++)
+		//	for (int y = 225; y < 275; y++)
+		//	{
+		//		if (insidecir(x, y, 400, 250, 20) == false)
+		//			drawPixel(x, y, 1.0f, 1.0f, 1.0f);
+		//	}
 
-		//icon9
-		drawcircle2(550, 250, 50);
-		drawthickLine(525, 225, 550, 275, 1.0f, 0.0f, 0.0f);
-		drawthickLine(550, 275, 575, 225, 1.0f, 0.0f, 0.0f);
-		drawLine(540, 250, 560, 250, 1.0f, 0.0f, 0.0f);
+		////icon9
+		//drawcircle2(550, 250, 50);
+		//drawthickLine(525, 225, 550, 275, 1.0f, 0.0f, 0.0f);
+		//drawthickLine(550, 275, 575, 225, 1.0f, 0.0f, 0.0f);
+		//drawLine(540, 250, 560, 250, 1.0f, 0.0f, 0.0f);
 
-		//icon10
-		drawcircle2(700, 250, 50);
-		drawLine(675, 225, 725, 275, 1.0f, 0.0f, 0.0f);
-		drawLine(675, 275, 725, 225, 1.0f, 0.0f, 0.0f);
-
-
+		////icon10
+		//drawcircle2(700, 250, 50);
+		//drawLine(675, 225, 725, 275, 1.0f, 0.0f, 0.0f);
+		//drawLine(675, 275, 725, 225, 1.0f, 0.0f, 0.0f);
 
 
+		for (int i = 0; i < 20; i++)
+		{
+			my_object[i]->draw();
+		}
+	
+	
 		glDrawPixels(width, height, GL_RGB, GL_FLOAT, pixels);
 
 		/* Swap front and back buffers */
@@ -284,6 +401,7 @@ int main(void)
 	}
 
 	delete[] pixels;
+	delete[] my_lines;
 	glfwTerminate();
 	return 0;
 }
