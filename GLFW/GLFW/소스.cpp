@@ -184,6 +184,11 @@ void drawthickLine(const int& i0, const int& j0, const int& i1, const int& j1, c
 class geometric
 {
 public:
+	int start_x, start_y;
+	int end_x, end_y;
+	int x0, y0;
+	int radius;
+	int a;
 	virtual void draw()
 	{
 
@@ -193,12 +198,35 @@ public:
 class Line: public geometric
 {
 public:
-	int start_x, start_y;
-	int end_x, end_y;
-	  
+	
+	Line()
+	{
+
+	}
+
+	Line(const int _a,const int _start_x, const int _start_y, const int _end_x, const int _end_y)
+	{
+		initialize(_a,_start_x, _start_y, _end_x, _end_y);
+	}
+
+	void initialize(const int _a,const int _start_x, const int _start_y, const int _end_x, const int _end_y)
+	{
+		a = _a;
+		start_x = _start_x;
+		start_y = _start_y;
+		end_x = _end_x;
+		end_y = _end_y;
+	}
 	void draw()
 	{
-		drawLine(start_x, start_y, end_x, end_y, 1.0f, 0.0f, 0.0f);
+		if (a == 1)//draw normal line
+		{
+			drawLine(start_x, start_y, end_x, end_y, 1.0f, 0.0f, 0.0f);
+		}
+		if (a == 2)//draw thick line
+		{
+			drawthickLine(start_x, start_y, end_x, end_y, 1.0f, 0.0f, 0.0f);
+		}
 	}
 };
 
@@ -208,8 +236,15 @@ Line *my_lines = new Line[num_lines];
 class box : public geometric
 {
 public:
-	int start_x, start_y;
-	int end_x, end_y;
+	box()
+	{
+
+	}
+
+	box(const int _start_x, const int _start_y, const int _end_x, const int _end_y)
+	{
+		initialize(_start_x, _start_y, _end_x, _end_y);
+	}
 
 	void initialize(const int _start_x, const int _start_y, const int _end_x, const int _end_y)
 	{
@@ -233,19 +268,18 @@ box my_box;
 class circle :public geometric
 {
 public:
-	int x0, y0;
-	int radius;
+
 	circle()
 	{
 
 	}
 public:
-	circle(int & _x0, int& _y0, int& _radius)
+	circle(const int& _x0,const int& _y0,const int& _radius)
 	{
 		initialize(_x0,_y0,_radius);
 		
 	}
-	void initialize(int & _x0,int& _y0, int& _radius)
+	void initialize(const int & _x0,const int& _y0,const int& _radius)
 	{
 		x0 = _x0;
 		y0 = _y0;
@@ -257,43 +291,172 @@ public:
 	}
 };
 
+class arrow :public geometric
+{
+public:
+    
+	arrow()
+	{
+
+	}
+	arrow(const int _a,const int& _x0, const int& _y0)
+	{
+		initialize(_a,_x0, _y0);
+	}
+	void initialize(const int _a,const int& _x0, const int& _y0)
+	{
+		a = _a;
+		x0 = _x0;
+		y0 = _y0;
+	}
+	void draw()
+	{
+		if (a == 1)//up arrow
+		{
+			drawLine(x0, y0 - 35, x0, y0 + 35,1.0f,0.0f,0.0f);
+			drawLine(x0 - 15, y0 + 20, x0, y0 + 35, 1.0f, 0.0f, 0.0f);
+			drawLine(x0 , y0 + 35, x0+15, y0 + 20, 1.0f, 0.0f, 0.0f);
+		}
+		if (a == 2)//down arrow
+		{
+			drawLine(x0, y0 - 35, x0, y0 + 35, 1.0f, 0.0f, 0.0f);
+			drawLine(x0 - 15, y0 - 20, x0, y0 - 35, 1.0f, 0.0f, 0.0f);
+			drawLine(x0 , y0 - 35, x0+15, y0 - 20, 1.0f, 0.0f, 0.0f);
+		}
+		if (a == 3)//rignt arrow
+		{
+			drawLine(x0-35, y0, x0 + 35, y0, 1.0f, 0.0f, 0.0f);
+			drawLine(x0 +20, y0 - 15, x0+35, y0, 1.0f, 0.0f, 0.0f);
+			drawLine(x0 + 20, y0 + 15, x0 + 35, y0, 1.0f, 0.0f, 0.0f);
+		}
+		if (a == 4)//left arrow
+		{
+			drawLine(x0 - 35, y0, x0 + 35, y0, 1.0f, 0.0f, 0.0f);
+			drawLine(x0 - 35, y0, x0 - 20, y0-15, 1.0f, 0.0f, 0.0f);
+			drawLine(x0 - 35, y0, x0 - 20, y0 + 15, 1.0f, 0.0f, 0.0f);
+		}
+		
+	}
+};
+class X :public geometric
+{
+public:
+	X()
+	{
+
+	}
+
+	X(const int& _start_x, const int& _start_y, const int& _end_x, const int& _end_y)
+	{
+		initialize(_start_x, _start_y, _end_x, _end_y);
+	}
+
+	void initialize(const int _start_x, const int _start_y, const int _end_x, const int _end_y)
+	{
+		start_x = _start_x;
+		start_y = _start_y;
+		end_x = _end_x;
+		end_y = _end_y;
+	}
+	void draw()
+	{
+		drawLine(start_x, start_y, end_x, end_y, 1.0f, 0.0f, 0.0f);
+		drawLine(start_x, end_y, end_x, start_y, 1.0f, 0.0f, 0.0f);
+	}
+
+};
+class A :public geometric
+{
+public:
+public:
+
+	A()
+	{
+
+	}
+	A( const int& _x0, const int& _y0)
+	{
+		initialize( _x0, _y0);
+	}
+	void initialize( const int& _x0, const int& _y0)
+	{
+		x0 = _x0;
+		y0 = _y0;
+	}
+	void draw()
+	{
+		drawthickLine(x0 - 25, y0 - 25, x0, y0 + 25, 1.0f, 0.0f, 0.0f);
+		drawthickLine(x0, y0 + 25, x0 + 25, y0 - 25, 1.0f, 0.0f, 0.0f);
+		drawLine(x0 - 10, y0, x0 + 10, y0, 1.0f, 0.0f, 0.0f);
+	}
+};
+
 circle **my_circles = new circle*[num_cir];
 
-geometric **my_object = new geometric*[20];
+geometric **my_object = new geometric*[40];
 
 int main(void)
 {
 
 	geometric *my_circle = new circle;
 
-	////initialize lines
-	//for (int i = 0; i < 5; i++)
-	//{
-	//	my_lines[i].start_x = 0 + 50 * i;
-	//	my_lines[i].start_y = 0;
-	//	my_lines[i].end_x = 50 + 50 * i;
-	//	my_lines[i].end_y =50;
+	
+	
 
-	//}
-
-	////initialize box
-	//my_box.initialize(100, 100, 200, 200);
+	//initialize circle 0~19
 	for (int f = 0; f < 4; f++)
 	{
 		for (int i = 0; i < 5; i++)
 		{
 
-			circle *temp = new circle;
-			/*my_circles[i+5*f] = new circle(100 + 150 * i, 100 + 150 * f,50);*/
-			temp->radius = 50;
+			/*circle *temp = new circle;*/
+			my_object[i+5*f] = new circle(100 + 150 * i, 100 + 150 * f,50);
+			/*temp->radius = 50;
 			temp->x0 = 100 + 150 * i;
 			temp->y0 = 100 + 150 * f;
 
-			my_object[i + 5 * f] = temp;
+			my_object[i + 5 * f] = temp;*/
 
 		}
 	}
-	
+
+	//initialize arrows 1234,11,12,13,14
+	for(int f=0;f<2;f++)
+		for (int i = 20; i < 24; i++)
+		{
+			my_object[i + 10 * f] = new arrow(i - 19, 100 + 150 * (i - 20), 100 + 300 * f);
+		}
+	//initialize box 5,15
+	for (int f = 0; f<2; f++)
+		{
+			my_object[24 + 10 * f] = new box(675,75+300*f,725,125+300*f);
+		}
+	//initialize thick line 6,16
+	for (int f = 0; f<2; f++)
+	{
+		my_object[25 + 10 * f] = new Line(2,75,225+300*f, 125,275+300*f);
+	}
+
+	//initialize inside circle 7,17
+	for (int f = 0; f<2; f++)
+	{
+		my_object[26 + 10 * f] = new circle(250,250+300*f,25);
+	}
+	//initialize X 8 ,18
+	for (int f = 0; f<2; f++)
+	{
+		my_object[27 + 10 * f] = new X(375, 225 + 300 * f,425,275+300*f);
+	}
+	//initialize one line 9,19
+	for (int f = 0; f<2; f++)
+	{
+		my_object[28 + 10 * f] = new Line(1,550, 215 + 300 * f, 550, 285 + 300 * f);
+	}
+	//initialize A10,20
+	for (int f = 0; f<2; f++)
+	{
+		my_object[29 + 10 * f] = new A(700, 250 + 300 * f);
+	}
 	GLFWwindow* window;
 
 	/* Initialize the library */
@@ -321,71 +484,10 @@ int main(void)
 
 
 		glfwGetCursorPos(window, &xpos, &ypos);
-		////icon1
-		//drawcircle2(100, 100, 50);
-		//drawLine(100, 65, 100, 135, 1.0f, 0.0f, 0.0f);
-		//drawLine(85, 120, 100, 135, 1.0f, 0.0f, 0.0f);
-		//drawLine(100, 135, 115, 120, 1.0f, 0.0f, 0.0f);
-		////icon 2
-		//drawcircle2(250, 100, 50);
-		//drawLine(250, 65, 250, 135, 1.0f, 0.0f, 0.0f);
-		//drawLine(235, 80, 250, 65, 1.0f, 0.0f, 0.0f);
-		//drawLine(250, 65, 265, 80, 1.0f, 0.0f, 0.0f);
-		////icon3
-		//drawcircle2(400, 100, 50);
-
-		//drawLine(365, 100, 435, 100, 1.0f, 0.0f, 0.0f);
-		//drawLine(365, 100, 380, 115, 1.0f, 0.0f, 0.0f);
-		//drawLine(365, 100, 380, 85, 1.0f, 0.0f, 0.0f);
-
-		////icon4
-		//drawcircle2(550, 100, 50);
-		//drawLine(515, 100, 585, 100, 1.0f, 0.0f, 0.0f);
-		//drawLine(570, 115, 585, 100, 1.0f, 0.0f, 0.0f);
-		//drawLine(570, 85, 585, 100, 1.0f, 0.0f, 0.0f);
-		////icon5
-		//drawcircle2(700, 100, 50);
-		//drawthickLine(675, 75, 725, 125, 1.0f, 0.0f, 0.0f);
-
-		////icon6
-		//drawcircle2(100, 250, 50);
-
-		//drawLine(75, 225, 75, 275, 1.0f, 0.0f, 0.0f);
-		//drawLine(125, 225, 125, 275, 1.0f, 0.0f, 0.0f);
-		//drawLine(75, 225, 125, 225, 1.0f, 0.0f, 0.0f);
-		//drawLine(75, 275, 125, 275, 1.0f, 0.0f, 0.0f);
-
-		////icon7
-		//drawcircle2(250, 250, 50);
-		//drawLine(250, 215, 250, 285, 1.0f, 0.0f, 0.0f);
-		////icon8
-		//drawcircle2(400, 250, 50);
-		//for (int x = 375; x<425; x++)
-		//	for (int y = 225; y < 275; y++)
-		//	{
-		//		if (insidecir(x, y, 400, 250, 25) == false)
-		//			drawPixel(x, y, 1.0f, 0.0f, 0.0f);
-		//	}
-		//for (int x = 375; x<425; x++)
-		//	for (int y = 225; y < 275; y++)
-		//	{
-		//		if (insidecir(x, y, 400, 250, 20) == false)
-		//			drawPixel(x, y, 1.0f, 1.0f, 1.0f);
-		//	}
-
-		////icon9
-		//drawcircle2(550, 250, 50);
-		//drawthickLine(525, 225, 550, 275, 1.0f, 0.0f, 0.0f);
-		//drawthickLine(550, 275, 575, 225, 1.0f, 0.0f, 0.0f);
-		//drawLine(540, 250, 560, 250, 1.0f, 0.0f, 0.0f);
-
-		////icon10
-		//drawcircle2(700, 250, 50);
-		//drawLine(675, 225, 725, 275, 1.0f, 0.0f, 0.0f);
-		//drawLine(675, 275, 725, 225, 1.0f, 0.0f, 0.0f);
+		
 
 
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < 40; i++)
 		{
 			my_object[i]->draw();
 		}
