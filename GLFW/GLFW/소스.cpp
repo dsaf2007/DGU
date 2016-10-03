@@ -16,6 +16,8 @@ const int num_lines = 5;
 
 const int num_cir = 20;
 
+class geometric;
+
 bool insidecir(const double x, const double y, const int x_c, const int y_c, const int r)
 {
 
@@ -53,45 +55,10 @@ void drawPixel(const int& i, const int& j, const float& red, const float& green,
 
 void drawcircle(double x0, double y0, int radius)
 {
-	int x = radius;
-	int y = 0;
-	int err = 0;
+	
+	
 
-	while (x >= y)
-	{
-		if (poscir(xpos, 700 - ypos, x0, y0, radius) >= 0.0)
-		{
-			drawPixel(x0 + x, y0 + y, 1.0f, 0.0f, 0.0f);
-			drawPixel(x0 + y, y0 + x, 1.0f, 0.0f, 0.0f);
-			drawPixel(x0 - y, y0 + x, 1.0f, 0.0f, 0.0f);
-			drawPixel(x0 - x, y0 + y, 1.0f, 0.0f, 0.0f);
-			drawPixel(x0 - x, y0 - y, 1.0f, 0.0f, 0.0f);
-			drawPixel(x0 - y, y0 - x, 1.0f, 0.0f, 0.0f);
-			drawPixel(x0 + y, y0 - x, 1.0f, 0.0f, 0.0f);
-			drawPixel(x0 + x, y0 - y, 1.0f, 0.0f, 0.0f);
-
-		}
-		else
-		{
-			drawPixel(x0 + x, y0 + y, 0.0f, 1.0f, 0.0f);
-			drawPixel(x0 + y, y0 + x, 0.0f, 1.0f, 0.0f);
-			drawPixel(x0 - y, y0 + x, 0.0f, 1.0f, 0.0f);
-			drawPixel(x0 - x, y0 + y, 0.0f, 1.0f, 0.0f);
-			drawPixel(x0 - x, y0 - y, 0.0f, 1.0f, 0.0f);
-			drawPixel(x0 - y, y0 - x, 0.0f, 1.0f, 0.0f);
-			drawPixel(x0 + y, y0 - x, 0.0f, 1.0f, 0.0f);
-			drawPixel(x0 + x, y0 - y, 0.0f, 1.0f, 0.0f);
-
-		}
-
-		y += 1;
-		err += 1 + 2 * y;
-		if (2 * (err - x) + 1 > 0)
-		{
-			x -= 1;
-			err += 1 - 2 * x;
-		}
-	}
+	
 }
 void drawcircle2(int x0, int y0, int radius)
 {
@@ -189,9 +156,16 @@ public:
 	int x0, y0;
 	int radius;
 	int a;
+	float r=1.0f, g=0.0f, b=0.0f;
 	virtual void draw()
 	{
 
+	}
+	void effect()
+	{
+		r = 0.0f;
+		g = 1.0f;
+		b = 0.0f;
 	}
 };
 
@@ -228,6 +202,7 @@ public:
 			drawthickLine(start_x, start_y, end_x, end_y, 1.0f, 0.0f, 0.0f);
 		}
 	}
+	
 };
 
 Line *my_lines = new Line[num_lines];
@@ -268,7 +243,7 @@ box my_box;
 class circle :public geometric
 {
 public:
-
+	int err = 0;
 	circle()
 	{
 
@@ -287,7 +262,28 @@ public:
 	}
 	void draw()
 	{
-		drawcircle2(x0, y0, radius);
+		int x = radius;
+		int y = 0;
+		while (x >y)
+		{
+
+			drawPixel(x0 + x, y0 + y, r, g, b);
+			drawPixel(x0 + y, y0 + x, r, g, b);
+			drawPixel(x0 - y, y0 + x, r, g, b);
+			drawPixel(x0 - x, y0 + y, r, g, b);
+			drawPixel(x0 - x, y0 - y, r, g, b);
+			drawPixel(x0 - y, y0 - x, r, g, b);
+			drawPixel(x0 + y, y0 - x, r, g, b);
+			drawPixel(x0 + x, y0 - y, r, g, b);
+
+			y += 1;
+			err += 1 + 2 * y;
+			if (2 * (err - x) + 1 > 0)
+			{
+				x -= 1;
+				err += 1 - 2 * x;
+			}
+		}
 	}
 };
 
@@ -457,7 +453,11 @@ int main(void)
 	{
 		my_object[29 + 10 * f] = new A(700, 250 + 300 * f);
 	}
+	
+
 	GLFWwindow* window;
+
+	
 
 	/* Initialize the library */
 	if (!glfwInit())
@@ -483,10 +483,22 @@ int main(void)
 		std::fill_n(pixels, width*height * 3, 1.0f);
 
 
-		glfwGetCursorPos(window, &xpos, &ypos);
 		
+		glfwGetCursorPos(window, &xpos, &ypos);
+		//initialize effect.
+		for (int f = 0; f < 4; f++)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				if (poscir(xpos, ypos, my_object[i + 5 * f]->x0, 700 - my_object[i + 5 * f]->y0, my_object[i + 5 * f]->radius) < 0.0)
+				{
+					my_object[i + 5 * f]->effect();
+					my_object[i + 5 * f] = new circle(100 + 150 * i, 100 + 150 * f, 50);
+				}
 
-
+			}
+		}
+		
 		for (int i = 0; i < 40; i++)
 		{
 			my_object[i]->draw();
