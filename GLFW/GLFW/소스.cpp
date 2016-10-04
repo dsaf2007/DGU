@@ -157,16 +157,34 @@ public:
 	int radius;
 	int a;
 	float r=1.0f, g=0.0f, b=0.0f;
+	int err = 0;
 	virtual void draw()
 	{
+		int x = radius;
+		int y = 0;
+		while (x >y)
+		{
 
+			drawPixel(x0 + x, y0 + y, 0.0f, 1.0f, b);
+			drawPixel(x0 + y, y0 + x, 0.0f, 1.0f, b);
+			drawPixel(x0 - y, y0 + x, 0.0f, 1.0f, b);
+			drawPixel(x0 - x, y0 + y, 0.0f, 1.0f ,b);
+			drawPixel(x0 - x, y0 - y, 0.0f, 1.0f, b);
+			drawPixel(x0 - y, y0 - x, 0.0f, 1.0f, b);
+			drawPixel(x0 + y, y0 - x, 0.0f, 1.0f, b);
+			drawPixel(x0 + x, y0 - y, 0.0f, 1.0f ,b);
+
+			y += 1;
+			err += 1 + 2 * y;
+			if (2 * (err - x) + 1 > 0)
+			{
+				x -= 1;
+				err += 1 - 2 * x;
+			}
+		}
 	}
-	void effect()
-	{
-		r = 0.0f;
-		g = 1.0f;
-		b = 0.0f;
-	}
+
+	
 };
 
 class Line: public geometric
@@ -243,7 +261,7 @@ box my_box;
 class circle :public geometric
 {
 public:
-	int err = 0;
+	
 	circle()
 	{
 
@@ -404,7 +422,7 @@ int main(void)
 	{
 		for (int i = 0; i < 5; i++)
 		{
-
+			
 			/*circle *temp = new circle;*/
 			my_object[i+5*f] = new circle(100 + 150 * i, 100 + 150 * f,50);
 			/*temp->radius = 50;
@@ -492,7 +510,14 @@ int main(void)
 			{
 				if (poscir(xpos, ypos, my_object[i + 5 * f]->x0, 700 - my_object[i + 5 * f]->y0, my_object[i + 5 * f]->radius) < 0.0)
 				{
-					my_object[i + 5 * f]->effect();
+					
+					my_object[i + 5 * f] = new geometric;
+					my_object[i + 5 * f]->x0 = 100 + 150 * i;
+					my_object[i + 5 * f]->y0 = 100 + 150 * f;
+					my_object[i + 5 * f]->radius = 50;
+				}
+				else
+				{
 					my_object[i + 5 * f] = new circle(100 + 150 * i, 100 + 150 * f, 50);
 				}
 
