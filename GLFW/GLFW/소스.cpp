@@ -6,7 +6,7 @@
 #include "drawfuction.h"
 #include "geometric.h"
 #include "Line.h"
-#include "circle.h"
+
 #include "X.h"
 #include "vox.h"
 #include "a.h"
@@ -15,7 +15,7 @@
 
 
 
-double xpos, ypos;
+//double xpos, ypos;
 
 
 const int num_lines = 5;
@@ -43,73 +43,19 @@ box my_box;
 
 
 
-circle **my_circles = new circle*[num_cir];
+//circle **my_circles = new circle*[num_cir];
 
 geometric **my_object = new geometric*[40];
 
 int main(void)
 {
 
-	geometric *my_circle = new circle;
+	//geometric *my_circle = new circle;
 
 	
 	
 
-	//initialize circle 0~19
-	for (int f = 0; f < 4; f++)
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			
-			/*circle *temp = new circle;*/
-			my_object[i+5*f] = new circle(100 + 150 * i, 100 + 150 * f,50);
-			/*temp->radius = 50;
-			temp->x0 = 100 + 150 * i;
-			temp->y0 = 100 + 150 * f;
 
-			my_object[i + 5 * f] = temp;*/
-
-		}
-	}
-
-	//initialize arrows 1234,11,12,13,14
-	for(int f=0;f<2;f++)
-		for (int i = 20; i < 24; i++)
-		{
-			my_object[i + 10 * f] = new arrow(i - 19, 100 + 150 * (i - 20), 100 + 300 * f);
-		}
-	//initialize box 5,15
-	for (int f = 0; f<2; f++)
-		{
-			my_object[24 + 10 * f] = new box(675,75+300*f,725,125+300*f);
-		}
-	//initialize thick line 6,16
-	for (int f = 0; f<2; f++)
-	{
-		my_object[25 + 10 * f] = new Line(2,75,225+300*f, 125,275+300*f);
-	}
-
-	//initialize inside circle 7,17
-	for (int f = 0; f<2; f++)
-	{
-		my_object[26 + 10 * f] = new circle(250,250+300*f,25);
-	}
-	//initialize X 8 ,18
-	for (int f = 0; f<2; f++)
-	{
-		my_object[27 + 10 * f] = new X(375, 225 + 300 * f,425,275+300*f);
-	}
-	//initialize one line 9,19
-	for (int f = 0; f<2; f++)
-	{
-		my_object[28 + 10 * f] = new Line(1,550, 215 + 300 * f, 550, 285 + 300 * f);
-	}
-	//initialize A10,20
-	for (int f = 0; f<2; f++)
-	{
-		my_object[29 + 10 * f] = new A(700, 250 + 300 * f);
-	}
-	
 
 	GLFWwindow* window;
 
@@ -146,22 +92,77 @@ int main(void)
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				if (poscir(xpos, ypos, my_object[i + 5 * f]->x0, 700 - my_object[i + 5 * f]->y0, my_object[i + 5 * f]->radius) < 0.0)
-				{
-					
-					my_object[i + 5 * f] = new geometric;
-					my_object[i + 5 * f]->x0 = 100 + 150 * i;
-					my_object[i + 5 * f]->y0 = 100 + 150 * f;
-					my_object[i + 5 * f]->radius = 50;
-				}
-				else
-				{
-					my_object[i + 5 * f] = new circle(100 + 150 * i, 100 + 150 * f, 50);
-				}
+				//if (poscir(xpos, ypos, my_object[i + 5 * f]->x0, 700 - my_object[i + 5 * f]->y0, my_object[i + 5 * f]->radius) < 0.0)
+				//{
+				//	
+				//
+				//	my_object[i + 5 * f] = new (100 + 150 * i, 100 + 150 * f, 50);
+				//}
+				//else
+				//{
+				//	/*my_object[i + 5 * f] = new circle(100 + 150 * i, 100 + 150 * f, 50);*/
+				//	my_object[i + 5 * f]->red();
+				//	my_object[i + 5 * f] = new circle(100 + 150 * i, 100 + 150 * f, 50);
+				//}
+				my_object[i + 5 * f] = new geometric(xpos, ypos, 100 + 150 * i, 100 + 150 * f, 50);
 
 			}
 		}
-		
+		//initialize circle 0~19
+		for (int f = 0; f < 4; f++)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+
+				/*circle *temp = new circle;*/
+				my_object[i + 5 * f] = new geometric(xpos,ypos,100 + 150 * i, 100 + 150 * f, 50);
+				/*temp->radius = 50;
+				temp->x0 = 100 + 150 * i;
+				temp->y0 = 100 + 150 * f;
+
+				my_object[i + 5 * f] = temp;*/
+
+			}
+		}
+
+		//initialize arrows 1234,11,12,13,14
+		for (int f = 0; f<2; f++)
+			for (int i = 20; i < 24; i++)
+			{
+				my_object[i + 10 * f] = new arrow(i - 19, 100 + 150 * (i - 20), 100 + 300 * f);
+			}
+		//initialize box 5,15
+		for (int f = 0; f<2; f++)
+		{
+			my_object[24 + 10 * f] = new box(675, 75 + 300 * f, 725, 125 + 300 * f);
+		}
+		//initialize thick line 6,16
+		for (int f = 0; f<2; f++)
+		{
+			my_object[25 + 10 * f] = new Line(2, 75, 225 + 300 * f, 125, 275 + 300 * f);
+		}
+
+		//initialize inside circle 7,17
+		for (int f = 0; f<2; f++)
+		{
+			my_object[26 + 10 * f] = new geometric(xpos, ypos, 250, 250 + 300 * f, 25);
+		}
+		//initialize X 8 ,18
+		for (int f = 0; f<2; f++)
+		{
+			my_object[27 + 10 * f] = new X(375, 225 + 300 * f, 425, 275 + 300 * f);
+		}
+		//initialize one line 9,19
+		for (int f = 0; f<2; f++)
+		{
+			my_object[28 + 10 * f] = new Line(1, 550, 215 + 300 * f, 550, 285 + 300 * f);
+		}
+		//initialize A10,20
+		for (int f = 0; f<2; f++)
+		{
+			my_object[29 + 10 * f] = new A(700, 250 + 300 * f);
+		}
+
 		for (int i = 0; i < 40; i++)
 		{
 			my_object[i]->draw();
