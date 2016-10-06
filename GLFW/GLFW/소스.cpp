@@ -87,27 +87,7 @@ int main(void)
 
 		
 		glfwGetCursorPos(window, &xpos, &ypos);
-		//initialize effect.
-		for (int f = 0; f < 4; f++)
-		{
-			for (int i = 0; i < 5; i++)
-			{
-				//if (poscir(xpos, ypos, my_object[i + 5 * f]->x0, 700 - my_object[i + 5 * f]->y0, my_object[i + 5 * f]->radius) < 0.0)
-				//{
-				//	
-				//
-				//	my_object[i + 5 * f] = new (100 + 150 * i, 100 + 150 * f, 50);
-				//}
-				//else
-				//{
-				//	/*my_object[i + 5 * f] = new circle(100 + 150 * i, 100 + 150 * f, 50);*/
-				//	my_object[i + 5 * f]->red();
-				//	my_object[i + 5 * f] = new circle(100 + 150 * i, 100 + 150 * f, 50);
-				//}
-				my_object[i + 5 * f] = new geometric(xpos, ypos, 100 + 150 * i, 100 + 150 * f, 50);
-
-			}
-		}
+	
 		//initialize circle 0~19
 		for (int f = 0; f < 4; f++)
 		{
@@ -116,7 +96,7 @@ int main(void)
 				my_object[i + 5 * f] = new circle(xpos,ypos,100 + 150 * i, 100 + 150 * f, 50);	
 			}
 		}
-		//initialize bigger circle around
+		//initialize bigger circlle
 		for (int f = 0; f < 4; f++)
 		{
 			for (int i = 0; i < 5; i++)

@@ -40,7 +40,7 @@ public:
 		int y = 0;
 		while (x >y)
 		{
-		/*	if (poscir(xpos,700- ypos, x0, y0, radius) < 0.0f)
+			if (poscir(xpos,700- ypos, x0, y0, radius) < 0.0f)
 			{
 				drawPixel(x0 + x, y0 + y, 0.0f, 1.0f, 0.0f);
 				drawPixel(x0 + y, y0 + x, 0.0f, 1.0f, 0.0f);
@@ -52,7 +52,7 @@ public:
 				drawPixel(x0 + x, y0 - y, 0.0f, 1.0f, 0.0f);
 			}
 			else
-			{*/
+			{
 				drawPixel(x0 + x, y0 + y, 1.0f, 0.0f, 0.0f);
 				drawPixel(x0 + y, y0 + x, 1.0f, 0.0f, 0.0f);
 				drawPixel(x0 - y, y0 + x, 1.0f, 0.0f, 0.0f);
@@ -61,6 +61,7 @@ public:
 				drawPixel(x0 - y, y0 - x, 1.0f, 0.0f, 0.0f);
 				drawPixel(x0 + y, y0 - x, 1.0f, 0.0f, 0.0f);
 				drawPixel(x0 + x, y0 - y, 1.0f, 0.0f, 0.0f);
+			}
 			
 
 			y += 1;
