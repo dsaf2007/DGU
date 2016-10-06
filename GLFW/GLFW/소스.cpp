@@ -6,7 +6,7 @@
 #include "drawfuction.h"
 #include "geometric.h"
 #include "Line.h"
-
+#include "circle.h"
 #include "X.h"
 #include "vox.h"
 #include "a.h"
@@ -45,7 +45,7 @@ box my_box;
 
 //circle **my_circles = new circle*[num_cir];
 
-geometric **my_object = new geometric*[40];
+geometric **my_object = new geometric*[60];
 
 int main(void)
 {
@@ -112,16 +112,16 @@ int main(void)
 		for (int f = 0; f < 4; f++)
 		{
 			for (int i = 0; i < 5; i++)
+			{		
+				my_object[i + 5 * f] = new circle(xpos,ypos,100 + 150 * i, 100 + 150 * f, 50);	
+			}
+		}
+		//initialize bigger circle around
+		for (int f = 0; f < 4; f++)
+		{
+			for (int i = 0; i < 5; i++)
 			{
-
-				/*circle *temp = new circle;*/
-				my_object[i + 5 * f] = new geometric(xpos,ypos,100 + 150 * i, 100 + 150 * f, 50);
-				/*temp->radius = 50;
-				temp->x0 = 100 + 150 * i;
-				temp->y0 = 100 + 150 * f;
-
-				my_object[i + 5 * f] = temp;*/
-
+				my_object[i + 5 * (f+8)] = new geometric(xpos, ypos, 100 + 150 * i, 100 + 150 * f, 70);
 			}
 		}
 
@@ -163,7 +163,7 @@ int main(void)
 			my_object[29 + 10 * f] = new A(700, 250 + 300 * f);
 		}
 
-		for (int i = 0; i < 40; i++)
+		for (int i = 0; i < 60; i++)
 		{
 			my_object[i]->draw();
 		}
@@ -179,7 +179,7 @@ int main(void)
 	}
 
 	delete[] pixels;
-	
+	delete[] my_object;
 	glfwTerminate();
 	return 0;
 }
