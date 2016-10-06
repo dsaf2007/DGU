@@ -101,7 +101,7 @@ int main(void)
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				my_object[i + 5 * (f+8)] = new geometric(xpos, ypos, 100 + 150 * i, 100 + 150 * f, 70);
+				my_object[i + 5 * (f+8)] = new geometric(xpos, ypos, 30 + 150 * i, 30 + 150 * f,170+150*i,170+150*f );
 			}
 		}
 
@@ -125,7 +125,7 @@ int main(void)
 		//initialize inside circle 7,17
 		for (int f = 0; f<2; f++)
 		{
-			my_object[26 + 10 * f] = new geometric(xpos, ypos, 250, 250 + 300 * f, 25);
+			my_object[26 + 10 * f] = new circle(xpos, ypos, 250, 250 + 300 * f, 25);
 		}
 		//initialize X 8 ,18
 		for (int f = 0; f<2; f++)

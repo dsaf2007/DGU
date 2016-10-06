@@ -1,4 +1,5 @@
 #pragma once
+#include <stdbool.h>
 
 const int width = 800;
 
@@ -23,6 +24,16 @@ double poscir(double x, double y, const double x_c, const double y_c, const doub
 
 	double f = (x - x_c)*(x - x_c) + (y - y_c)*(y - y_c) - r*r;
 	return f;
+}
+
+bool possquare(double xpos,double ypos,double x, double y, const double x_c, const double y_c)
+{
+
+	if (xpos >= x&&xpos <= x_c&&ypos >= y&&ypos <= y_c)
+		return true;
+	else
+		return false;
+
 }
 
 
