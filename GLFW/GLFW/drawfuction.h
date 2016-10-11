@@ -145,3 +145,16 @@ void drawthickLine(const int& i0, const int& j0, const int& i1, const int& j1, c
 		drawPixel(i - 1, j, red, green, blue);
 	}
 }
+
+void box(const int start_x, const int start_y, const int end_x, const int end_y,const float red,const float blue,const float green)
+{
+	//drawLine(start_x, start_y, end_x, start_y, red, blue, green);
+	//drawLine(start_x, start_y, start_x, end_y, red, blue, green);
+	//drawLine(start_x, end_y, end_x, end_y, red, blue, green);
+	//drawLine(end_x, start_y, end_x, end_y, red, blue, green);
+
+	for (int i = 0; i < end_x-start_x; i++)
+	{
+		drawLine(start_x+i, start_y, start_x+i, end_y, red, blue, green);
+	}
+}

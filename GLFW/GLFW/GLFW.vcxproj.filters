@@ -20,25 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="circle.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="vox.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="geometric.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="arrow.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="X.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="a.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Line.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="drawfuction.h">
