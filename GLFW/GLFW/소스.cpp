@@ -21,11 +21,14 @@ class vector2d
 {
 public:
 	T x_, y_;
+	vector2d(const T& _x, const T&_y) :x_(_x), y_(_y)
+	{
+	}
+	void print()
+	{
+		std::cout < x_ << " " << y_ std::endl;
+	}
 };
-
-
-
-
 
 
 
@@ -41,10 +44,6 @@ const int num_cir = 20;
 
 
 
-
-
-
-
 //Line *my_lines = new Line[num_lines];
 
 
@@ -57,84 +56,11 @@ int main(void)
 	/*print(1);
 	print(1.1f);
 	print("hello world");*/
-	vector2d<int> my_vector;
-	vector2d<double> my_vector2;
-	vector2d<float> my_vector3;
+	vector2d<int>int_vector(1, 1);
+	int_vector.print();
+	vector2d<double> double_vector(1, 1);
+	double_vector.print();
 
-	my_vector.x_ = 1;
-	my_vector.y_ = 2;
-
-	my_vector2.x_ = 2.0;
-	my_vector2.y_ = 3.0;
-
-	my_vector3.x_ = 1.0f;
-	my_vector3.y_ = 1.0f;
-
-
-
-	//geometric *my_circle = new circle;
-
-
-
-
-
-
-	GLFWwindow* window;
-
-
-
-	/* Initialize the library */
-	if (!glfwInit())
-		return -1;
-
-	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
-	if (!window)
-	{
-		glfwTerminate();
-		return -1;
-	}
-
-	/* Make the window's context current */
-	glfwMakeContextCurrent(window);
-
-	geometric<yellow>go_yellow;
-	geometric<red>go_red;
-
-
-
-	/* Loop until the user closes the window */
-	while (!glfwWindowShouldClose(window))
-	{
-		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT);
-		std::fill_n(pixels, width*height * 3, 1.0f);
-
-
-
-		//glfwGetCursorPos(window, &xpos, &ypos);
-
-
-		//for (int i = 0; i < 60; i++)
-		//{
-		//	my_object[i]->draw();
-		//}
-		go_yellow.draw();
-		go_red.draw();
-
-		glDrawPixels(width, height, GL_RGB, GL_FLOAT, pixels);
-
-		/* Swap front and back buffers */
-		glfwSwapBuffers(window);
-
-		/* Poll for and process events */
-		glfwPollEvents();
-	}
-
-	delete[] pixels;
-	/*delete[] my_object;*/
-	glfwTerminate();
-	return 0;
 }
 
 
