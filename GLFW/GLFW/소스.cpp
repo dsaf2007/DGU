@@ -66,7 +66,60 @@ int main(void)
 
 
 
-	
+	GLFWwindow* window;
+
+
+
+	/* Initialize the library */
+	if (!glfwInit())
+		return -1;
+
+	/* Create a windowed mode window and its OpenGL context */
+	window = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
+	if (!window)
+	{
+		glfwTerminate();
+		return -1;
+	}
+
+	/* Make the window's context current */
+	glfwMakeContextCurrent(window);
+
+
+
+
+	/* Loop until the user closes the window */
+	while (!glfwWindowShouldClose(window))
+	{
+		/* Render here */
+		glClear(GL_COLOR_BUFFER_BIT);
+		std::fill_n(pixels, width*height * 3, 1.0f);
+
+		std::vector<geometric*>obj_list;
+		obj_list.push_back(new geometricobject<circle>);
+		obj_list.push_back(new geometricobject<box>);
+
+
+		for (auto itr : obj_list)
+		{
+			itr->draw();
+		}
+			
+
+		glDrawPixels(width, height, GL_RGB, GL_FLOAT, pixels);
+
+		/* Swap front and back buffers */
+		glfwSwapBuffers(window);
+
+		/* Poll for and process events */
+		glfwPollEvents();
+	}
+
+	delete[] pixels;
+	/*delete[] my_object;*/
+	glfwTerminate();
+	return 0;
+
 }
 
 
