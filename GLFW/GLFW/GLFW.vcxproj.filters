@@ -23,7 +23,13 @@
     <ClInclude Include="geometric.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="drawfuction.h">
+    <ClInclude Include="circle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="box.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="drawfunction.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

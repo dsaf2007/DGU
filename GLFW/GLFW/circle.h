@@ -1,17 +1,18 @@
 #pragma once
 #include "geometric.h"
-#include "drawfuction.h"
+#include "drawfunction.h"
 
-class circle :public geometric
+class circle
 {
 public:
-
+	int x0=300, y0=300,radius=100;
+	int err = 0;
 	circle()
 	{
 
 	}
 public:
-	circle(const double& _xpos, const double& _ypos,const int& _x0, const int& _y0, const int& _radius)
+	/*circle(const double& _xpos, const double& _ypos,const int& _x0, const int& _y0, const int& _radius)
 	{
 		initialize(_xpos,_ypos,_x0, _y0, _radius);
 
@@ -23,7 +24,7 @@ public:
 		x0 = _x0;
 		y0 = _y0;
 		radius = _radius;
-	}
+	}*/
 	void draw()
 	{
 		int x = radius;

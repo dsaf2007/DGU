@@ -151,8 +151,10 @@
     <ClCompile Include="소스.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="drawfuction.h" />
+    <ClInclude Include="circle.h" />
+    <ClInclude Include="drawfunction.h" />
     <ClInclude Include="geometric.h" />
+    <ClInclude Include="box.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
