@@ -6,10 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
-#include "drawfuction.h"
-#include "geometric.h"
-#include "red.h"
-#include "yellow.h"
+#include "drawfunction.h"
 
 template <class T_Class>
 void print(const T_Class& i)
@@ -92,7 +89,7 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 		std::fill_n(pixels, width*height * 3, 1.0f);
 
-	
+
 		drawLine(100, 100, 200, 200, 1.0f, 0.0f, 0.0f);
 
 
